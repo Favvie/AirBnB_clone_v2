@@ -33,7 +33,7 @@ class DBStorage:
         host = os.getenv('HBNB_MYSQL_HOST')
         db = os.getenv('HBNB_MYSQL_DB')
         test_dev = os.getenv('HBNB_ENV')  # Running Env
-        DBStorage.__engine = \
+        self.__engine = \
             create_engine(f'{dialect}+{driver}://{user}:{passwd}@{host}/{db}',
                           pool_pre_ping=True)
 
