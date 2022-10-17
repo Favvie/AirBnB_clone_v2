@@ -45,7 +45,7 @@ class DBStorage:
         """
         if cls:
             obj_dict = {}
-            for obj in DBStorage.__session.query(cls):
+            for obj in self.__session.query(cls):
                 key = cls.__name__ + '.' + obj.id
                 obj_dict[key] = obj
             return obj_dict
@@ -53,7 +53,7 @@ class DBStorage:
             classes = [State, City, User, Place, Review, Amenity]
             obj_dict = {}
             for clss in classes:
-                for obj in DBStorage.__session.query(clss):
+                for obj in self.__session.query(clss):
                     key = clss.__name__ + '.' + obj.id
                     obj_dict[key] = obj
             return obj_dict
@@ -81,8 +81,14 @@ class DBStorage:
 
     def reload(self):
         """ Creates all tables in the database and session """
-        Base.metadata.create_all(DBStorage.__engine)
-        session_factory = sessionmaker(bind=DBStorage.__engine,
+        Base.metadata.create_all(self.__engine)
+        session_factory = sessionmaker(bind=self.__engine,
                                        expire_on_commit=False)
         Session = scoped_session(session_factory)
-        DBStorage.__session = Session()
+        self.__session = Session
+
+    def close(self):
+        """remove private session"""
+        self.__session.close()
+
+
