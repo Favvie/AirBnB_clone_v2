@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""flask application that display html page from storage"""
+"""
+flask application that display html page from storage
+"""
 from models import storage
 from models.state import State
 from flask import Flask, render_template
