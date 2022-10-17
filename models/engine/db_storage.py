@@ -64,11 +64,11 @@ class DBStorage:
         Args:
             obj (object): Instance of State, City etc
         """
-        DBStorage.__session.add(obj)
+        self.__session.add(obj)
 
     def save(self):
         """ Commit all the changes in the database """
-        DBStorage.__session.commit()
+        self.__session.commit()
 
     def delete(self, obj=None):
         """ Delete from current session
@@ -77,7 +77,7 @@ class DBStorage:
             obj (object): Instance of State, City etc
         """
         if cls:
-            DBStorage.__session.delete(obj)
+            self.__session.delete(obj)
 
     def reload(self):
         """ Creates all tables in the database and session """
