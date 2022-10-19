@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-flask application that display html page from storage
+flask application that display html page from storage apparently
+a really long moduel doc is required
 """
 from models import storage
 from models.state import State
