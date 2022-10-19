@@ -1,23 +1,25 @@
 #!/usr/bin/python3
 """
-flask application that display html page from storage apparently
-a really long moduel doc is required
+A simple flask server running on 0.0.0.0:5000
 """
+from flask import Flask, render_template
 from models import storage
 from models.state import State
-from flask import Flask, render_template
+
+
 app = Flask(__name__)
+app.url_map.strict_slashes = False
 
 
-@app.route("/states_list", strict_slashes=False)
-def display_state():
+@app.route('/states_list', strict_slashes=False)
+def display_states():
     """Prints html document with a list of states"""
-    all_states = storage.all(State)
-    return render_template("7-states_list.html", all_states=all_states)
+    states = storage.all(State).values()
+    return render_template('7-states_list.html', states=states)
 
 
 @app.teardown_appcontext
-def close_db(exc):
+def remove_current_session(exc):
     """Remove the current SQLAlchemy session."""
     storage.close()
 
